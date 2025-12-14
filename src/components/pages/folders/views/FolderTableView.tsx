@@ -6,7 +6,7 @@ import { useClipboard } from '@mantine/hooks';
 import { DataTable, DataTableSortStatus } from 'mantine-datatable';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
-import { copyFolderUrl, deleteFolder, editFolderVisibility, editFolderUploads } from '../actions';
+import { copyFolderUploadUrl, copyFolderUrl, deleteFolder, editFolderVisibility, editFolderUploads } from '../actions';
 import {
   IconCopy,
   IconFiles,
@@ -16,6 +16,7 @@ import {
   IconShare,
   IconShareOff,
   IconTrashFilled,
+  IconUpload,
   IconZip,
 } from '@tabler/icons-react';
 import ViewFilesModal from '../ViewFilesModal';
@@ -133,6 +134,17 @@ export default function FolderTableView() {
                       disabled={!folder.public}
                     >
                       <IconCopy size='1rem' />
+                    </ActionIcon>
+                  </Tooltip>
+                  <Tooltip label='Copy upload link'>
+                    <ActionIcon
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        copyFolderUploadUrl(folder, clipboard);
+                      }}
+                      disabled={!folder.allowUploads}
+                    >
+                      <IconUpload size='1rem' />
                     </ActionIcon>
                   </Tooltip>
                   <Tooltip label={folder.public ? 'Make private' : 'Make public'}>
