@@ -7,7 +7,7 @@ import { data, Link, Params, useLoaderData } from 'react-router-dom';
 import useSWR from 'swr';
 
 export async function loader({ params }: { params: Params<string> }) {
-  const res = await fetch(`/api/server/folder/${params.id}?upload=true`);
+  const res = await fetch(`/api/server/folder/${params.id}?uploads=true`);
   if (!res.ok) {
     throw data('Folder not found', { status: 404 });
   }
