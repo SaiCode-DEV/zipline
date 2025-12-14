@@ -39,6 +39,21 @@ export function copyFolderUrl(folder: Folder, clipboard: ReturnType<typeof useCl
   });
 }
 
+export function copyFolderUploadUrl(folder: Folder, clipboard: ReturnType<typeof useClipboard>) {
+  clipboard.copy(`${window.location.protocol}//${window.location.host}/folder/${folder.id}/upload`);
+
+  notifications.show({
+    title: 'Copied upload link',
+    message: (
+      <Anchor component={Link} to={`/folder/${folder.id}/upload`}>
+        {`${window.location.protocol}//${window.location.host}/folder/${folder.id}/upload`}
+      </Anchor>
+    ),
+    color: 'green',
+    icon: <IconCopy size='1rem' />,
+  });
+}
+
 export async function editFolderVisibility(folder: Folder, isPublic: boolean) {
   const { data, error } = await fetchApi<Response['/api/user/folders/[id]']>(
     `/api/user/folders/${folder.id}`,

@@ -12,10 +12,17 @@ import {
   IconShare,
   IconShareOff,
   IconTrashFilled,
+  IconUpload,
 } from '@tabler/icons-react';
 import { useState } from 'react';
 import ViewFilesModal from './ViewFilesModal';
-import { copyFolderUrl, deleteFolder, editFolderUploads, editFolderVisibility } from './actions';
+import {
+  copyFolderUploadUrl,
+  copyFolderUrl,
+  deleteFolder,
+  editFolderUploads,
+  editFolderVisibility,
+} from './actions';
 import EditFolderNameModal from './EditFolderNameModal';
 
 export default function FolderCard({ folder }: { folder: Folder }) {
@@ -76,6 +83,13 @@ export default function FolderCard({ folder }: { folder: Folder }) {
                   onClick={() => copyFolderUrl(folder, clipboard)}
                 >
                   Copy URL
+                </Menu.Item>
+                <Menu.Item
+                  leftSection={<IconUpload size='1rem' />}
+                  disabled={!folder.allowUploads}
+                  onClick={() => copyFolderUploadUrl(folder, clipboard)}
+                >
+                  Copy upload link
                 </Menu.Item>
                 <Menu.Item
                   leftSection={<IconTrashFilled size='1rem' />}
